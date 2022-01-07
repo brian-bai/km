@@ -7,3 +7,5 @@ edition = "2021"
 
 [dependencies]
 clap = "3.0.5"
+rusqlite = { version = "0.26.3", features = ["bundled"] }
+shellexpand = "2.1.0"
