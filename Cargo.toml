@@ -1,7 +1,13 @@
 [package]
 name = "km"
+author = "brian <baitq@outlook.com>"
 version = "0.1.0"
 edition = "2021"
+categories = ["command-line-utilities",]
+description = "Knowledge manager from the command line. It contains `km add`, `km update`, `km open`, and `km del`."
+homepage = "https://github.com/brian-bai/km"
+keywords = ["cli",]
+license = "Apache-2.0 OR MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
