@@ -13,6 +13,13 @@ fn main() {
                 .help("List all the tags"),
         )
         .subcommand(
+            App::new("init")
+                .about(
+                    "init storage db",
+                )
+                .version(crate_version!())
+        )
+        .subcommand(
             App::new("open")
                 .about(
                     "open mark by tag",
@@ -77,5 +84,24 @@ fn main() {
             }
         }
 
+    }
+
+    match app_m.subcommand() {
+        Some(("init", _sub_m)) => { 
+            println!("Init the storage DB: "); 
+            init_storage().expect("Init storage");
+        }
+        Some(("open", sub_m)) => {
+            if let Some(tag) = sub_m.value_of("TAG") {
+                match read_mark(tag) {
+                    Err(why) => println!("Read mark for {} failed. {}", tag, why),
+                    Ok(mark) => match open::that(&mark) {
+                        Ok(()) => println!("Open {} success.", &mark),
+                        Err(err) => eprintln!("Error occurred when open {}: {}", &mark, err)
+                    }
+                }
+            }
+        }
+        _ => {}
     }
 }
