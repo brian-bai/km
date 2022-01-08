@@ -54,3 +54,33 @@ pub fn read_mark(tag: &str) -> Result<String> {
     stmt.query_row([], |row| row.get(0))
 }
 
+pub fn add_mark(tag: &str, mark: &str) -> Result<()> {
+    let conn = get_conn()?;
+    
+    conn.execute(
+        "INSERT INTO book_marks (tag, mark) values (?1, ?2)",
+      &[&tag, &mark],
+    )?;
+    Ok(())
+}
+
+pub fn del_mark(tag: &str) -> Result<()> {
+    let conn = get_conn()?;
+    
+    conn.execute(
+        "delete from book_marks where tag = ?1 ;",
+      &[&tag],
+    )?;
+
+    Ok(())
+}
+
+pub fn update_mark(tag: &str, newtag: &str) -> Result<()> {
+    let conn = get_conn()?;
+    
+    conn.execute(
+        "update book_marks set tag = ?2 where tag = ?1;",
+      &[&tag, &newtag],
+    )?;
+    Ok(())
+}

@@ -73,6 +73,7 @@ fn main() {
                 ),
         )
         .get_matches();
+
     if app_m.is_present("list") {
         println!("List all tags:");
         match read_tags() {
@@ -102,6 +103,35 @@ fn main() {
                 }
             }
         }
+        Some(("add", sub_m)) => {
+            if let Some(tag) = sub_m.value_of("TAG") {
+                if let Some(mark) = sub_m.value_of("MARK") {
+                    match add_mark(tag, mark) {
+                        Ok(()) => println!("Add {}:{} success.",tag, mark),
+                        Err(why) => println!("Add mark for {} failed. {}", tag, why),
+                    }
+                }
+            }
+        }
+        Some(("del", sub_m)) => {
+            if let Some(tag) = sub_m.value_of("TAG") {
+                    match del_mark(tag) {
+                        Ok(()) => println!("{} deleted.",tag),
+                        Err(why) => println!("Delete mark for {} failed. {}", tag, why),
+                    }
+            }
+        }
+        Some(("update", sub_m)) => {
+            if let Some(tag) = sub_m.value_of("OLDTAG") {
+                if let Some(newtag) = sub_m.value_of("NEWTAG") {
+                    match update_mark(tag, newtag) {
+                        Ok(()) => println!("Update tag {}:{} success.",tag, newtag),
+                        Err(why) => println!("Update tag for {} failed. {}", tag, why),
+                    }
+                }
+            }
+        }
+
         _ => {}
     }
 }
