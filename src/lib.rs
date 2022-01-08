@@ -1,6 +1,6 @@
-use std::{path::Path, process};
+use std::{path::Path};
 use std::fs::create_dir_all;
-use rusqlite::{Connection, Result, Error};
+use rusqlite::{Connection, Result};
 
 #[macro_export]
 macro_rules! crate_version {
